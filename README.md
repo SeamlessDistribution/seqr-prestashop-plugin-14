@@ -15,8 +15,7 @@ Through our state of the art technology, we have created the easiest, secure, an
 Learn more about SEQR on www.seqr.com
 
 ## Supported Prestashop versions: ##
-* >= 1.6.x
-* 1.5.x
+* 1.4.x
 
 ## Dowloads ##
 * Version 1.1.0: [seqr-ps-plugin-1.1.0.zip](build/seqr-ps-plugin-1.1.0.zip)
@@ -73,12 +72,10 @@ Please check it for understanding how work web component http://github.com/Seaml
 For more information about SEQR API please check http://developer.seqr.com/merchant/webshop/
 
 ### Plugin directories and files: ###
-* controllers - front controllers used in the payment process
 * css - styles definition for the plugin
 * img - images
 * js - scripts required by the plugin
 * lib - the SEQR e-commerce library and its Prestashop implementation
-* views - view definitions for the payment process
 * seqr.php - module entry point
 
 ### Major php classes ###
@@ -86,4 +83,5 @@ For more information about SEQR API please check http://developer.seqr.com/merch
 * _seqr/prestashop/PsConfig.php_ - defines configuration for the Prestashop platform, installation, uninstall definitions.
 * _seqr/prestashop/PsFactory.php_ - defines conversion from Prestashop order to the unified invoice representation.
 * _seqr/prestashop/PsSeqrService.php_ - defines logic, sends requests to the SEQR system via provided API (seqr/lib/api/SeqrApi.php)
+* _seqr/prestashop/PsSeqrFrontController.php_ - an abstract controller, contains helper methods for templates
 
