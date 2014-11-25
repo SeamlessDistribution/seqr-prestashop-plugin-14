@@ -1,0 +1,19 @@
+
+.seqr-confirmation {
+    margin-bottom: 40px;
+}
+
+.seqr-box {
+    border: 1px solid #d6d4d4;
+    padding: 10px;
+    margin-bottom: 20px;
+    line-height: 23px;
+}
+
+.seqr-box h2 {
+    text-align: center;
+}
+
+#seqr-container {
+    margin: auto;
+}
