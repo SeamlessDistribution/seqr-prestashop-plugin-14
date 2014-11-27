@@ -1,6 +1,6 @@
 <?php
 
-require_once(dirname(__FILE__) . "/lib/seqr_package.php");
+require_once(dirname(__FILE__) . "/lib/prestashop/package.php");
 
 class SeqrCheckStatusController extends PsSeqrFrontController {
 
@@ -23,7 +23,7 @@ class SeqrCheckStatusController extends PsSeqrFrontController {
 
             $order = new Order($orderId);
             $service = new PsSeqrService($this->config, $order);
-            $status = $service->getPaymentStatus();
+            $status = $service->processPaymentStatus();
 
             $this->respond(json_encode($status));
 

@@ -1,6 +1,6 @@
 <?php
 
-require_once(dirname(__FILE__) . "/lib/seqr_package.php");
+require_once(dirname(__FILE__) . "/lib/prestashop/package.php");
 
 class SeqrConfirmationController extends PsSeqrFrontController {
 

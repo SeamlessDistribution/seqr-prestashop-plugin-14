@@ -18,7 +18,7 @@ Learn more about SEQR on www.seqr.com
 * 1.4.x
 
 ## Dowloads ##
-* Version 1.1.0: [seqr-ps-plugin-1.1.0.zip](build/seqr-ps-plugin-1.1.0.zip)
+* Version 1.1.1: [seqr-ps-plugin-1.1.1.zip](build/seqr-ps-plugin-1.1.1.zip)
 * all versions: [builds](build/)
 
 # Plugin #

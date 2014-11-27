@@ -15,7 +15,6 @@ abstract class SeqrService {
     protected $order = null;
     protected $loaded = false;
     protected $api = null;
-    protected $paymentStatusListener = null;
 
     /**
      * Initializes major parts of the service, API and the factory object.
@@ -91,7 +90,7 @@ abstract class SeqrService {
      * @return mixed
      * @throws Exception
      */
-    public function getPaymentStatus() {
+    public function processPaymentStatus() {
 
         $this->throwExceptionIfNotLoaded();
 
