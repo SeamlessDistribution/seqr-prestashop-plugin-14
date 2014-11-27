@@ -1,6 +1,6 @@
 <?php
 
-require_once(_PS_MODULE_DIR_ . '/seqr/lib/seqr_package.php');
+require_once(_PS_MODULE_DIR_ . '/seqr/lib/prestashop/package.php');
 
 if (!defined('_PS_VERSION_'))
     exit;

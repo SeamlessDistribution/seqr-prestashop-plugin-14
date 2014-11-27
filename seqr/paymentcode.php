@@ -1,6 +1,6 @@
 <?php
 
-require_once(dirname(__FILE__) . "/lib/seqr_package.php");
+require_once(dirname(__FILE__) . "/lib/prestashop/package.php");
 require_once(dirname(__FILE__) . "/../../config/config.inc.php");
 require_once(dirname(__FILE__) . "/seqr.php");
 
@@ -123,7 +123,6 @@ class SeqrPaymentCodeController extends PsSeqrFrontController {
     }
 }
 
-require(dirname(__FILE__) . '/../../config/config.inc.php');
 require(dirname(__FILE__) . '/../../header.php');
 
 $useSSL = true;
