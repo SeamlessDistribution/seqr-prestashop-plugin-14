@@ -24,7 +24,8 @@ final class SeqrApi {
 
             return $result;
         } catch(Exception $e) {
-            throw new Exception("SEQR API - Send invoice error: ", 100, $e);
+            PrestaShopLogger::addLog($e->getMessage());
+            throw new Exception("SEQR API - Send invoice error");
         }
     }
 
@@ -42,7 +43,8 @@ final class SeqrApi {
 
             return $result;
         } catch(Exception $e) {
-            throw new Exception("SEQR API - Get payment status error: ", 110, $e);
+            PrestaShopLogger::addLog($e->getMessage());
+            throw new Exception("SEQR API - Get payment status error");
         }
     }
 
@@ -71,7 +73,6 @@ final class SeqrApi {
 
         // Prepare main part of request data (ex Shipping and Discounts)
 
-        $thisObj = $this;
         $invoice = array(
             'paymentMode' => 'IMMEDIATE_DEBIT',
             'acknowledgmentMode' => 'NO_ACKNOWLEDGMENT',
@@ -79,25 +80,6 @@ final class SeqrApi {
             'issueDate' => date('Y-m-d\Th:i:s'),
             'title' => "SEQR payment",
             'clientInvoiceId' => $order->getId(),
-
-            'invoiceRows' => array_map(function (SeqrItem $item) use (&$thisObj, $currencyCode, $unitType) {
-                return array(
-                    'itemDescription' => $item->getName(),
-                    'itemSKU' => $item->getSku(),
-                    'itemTaxRate' => $item->getTaxRate(),
-                    'itemUnit' => $unitType,
-                    'itemQuantity' => $item->getQuantity(),
-                    'itemUnitPrice' => array(
-                        'currency' => $currencyCode,
-                        'value' => $thisObj->toFloat($item->getPriceInclTax())
-                    ),
-                    'itemTotalAmount' => array(
-                        'currency' => $currencyCode,
-                        'value' => $thisObj->toFloat($item->getTotalPriceInclTax())
-                    )
-                );
-            }, $order->getItems()),
-
             'totalAmount' => array(
                 'currency' => $currencyCode,
                 'value' => $this->toFloat($order->getTotalPriceInclTax())
@@ -106,6 +88,14 @@ final class SeqrApi {
             'backURL' => $order->getBackUrl(),
             'notificationUrl' => $order->getNotificationUrl()
         );
+
+        // Rows
+        $invoiceRows = array();
+        foreach ($order->getItems() as $item) {
+            $invoiceRow  = $this->createRow($item, $currencyCode, $unitType);
+            array_push($invoiceRows, $invoiceRow);
+        }
+        $invoice['invoiceRows'] = $invoiceRows;
 
         // Shipping & Handling
         if ($order->getShippingInclTax() && intval($order->getShippingInclTax())) {
@@ -164,6 +154,24 @@ final class SeqrApi {
         return $invoice;
     }
 
+    private function createRow(SeqrItem $item, $currencyCode, $unitType) {
+        return array(
+            'itemDescription' => $item->getName(),
+            'itemSKU' => $item->getSku(),
+            'itemTaxRate' => $item->getTaxRate(),
+            'itemUnit' => $unitType,
+            'itemQuantity' => $item->getQuantity(),
+            'itemUnitPrice' => array(
+                'currency' => $currencyCode,
+                'value' => $this->toFloat($item->getPriceInclTax())
+            ),
+            'itemTotalAmount' => array(
+                'currency' => $currencyCode,
+                'value' => $this->toFloat($item->getTotalPriceInclTax())
+            )
+        );
+    }
+
     /**
      * Cancels invoice on the SEQR server.
      * @param $reference
@@ -183,7 +191,8 @@ final class SeqrApi {
 
             return $result;
         } catch(Exception $e) {
-            throw new Exception("SEQR API - Cancel invoice error: ", 120, $e);
+            PrestaShopLogger::addLog($e->getMessage());
+            throw new Exception("SEQR API - Cancel invoice error");
         }
     }
 
